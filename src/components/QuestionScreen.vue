@@ -37,7 +37,9 @@
         created() {
             const instance = this;
             const questionId = +instance.$route.params.qid;
-            instance.question = db.questions.filter(questionData => questionData.id === questionId)[0];
+            instance.question = db.questions.filter(questionData => +questionData.id === +questionId)[0];
+
+            console.log(111, instance.question, questionId)
         }
     }
 </script>

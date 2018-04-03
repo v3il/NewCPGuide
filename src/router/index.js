@@ -13,22 +13,22 @@ export default new Router({
             name: 'questions',
             component: QuestionsList,
         },
-        {
-            path: '/query/:query',
-            name: 'filteredQuestions',
-            component: QuestionsList,
-        },
+        // {
+        //     path: '/query/:query',
+        //     name: 'filteredQuestions',
+        //     component: QuestionsList,
+        // },
         {
             path: "/:qid/",
             name: 'questions-filtered',
             component: QuestionsList,
-            children: [
-                {
-                    path: 'query/:query',
-                    name: 'filteredQuestions',
-                    component: QuestionsList,
-                },
-            ]
+            // children: [
+            //     {
+            //         path: 'query/:query',
+            //         name: 'filteredQuestions',
+            //         component: QuestionsList,
+            //     },
+            // ]
         },
         {
             path: '/q/:qid/',

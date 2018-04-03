@@ -151,11 +151,16 @@ const questionsList = [
 	},
 ];
 
+let id = 0;
 
 questionsList.forEach((questionData, index) => {
     const currentQuestionId = index + 1;
 
-	questionData.id = currentQuestionId;
+	questionData.id = id++;
+
+    (questionData.childrenQuestions || []).forEach((childQuestion, i) => {
+        childQuestion.id = id++;
+    })
 
 	// if(questionData.childrenQuestions) {
 	// 	const subQuestionsIds = [];

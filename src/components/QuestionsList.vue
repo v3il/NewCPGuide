@@ -3,7 +3,6 @@
     <div class="page-block">
         <div class="page-title-block">
             <div class="nav">
-                <!--v-show="this.showFilteredQuestionsList"-->
                 <h2>Я хочу...</h2>
                 <span class="back-link" @click="goBack">&lsaquo; Назад</span>
             </div>
@@ -13,12 +12,13 @@
 
         <div class="page-content-block">
             <ul>
-                <li v-for="question in this.filteredQuestions">
-                    <div class="question-container" @click="showQuestion(question)">
-                        {{question.question}}
-                        <!--<span>&rsaquo;</span>-->
-                    </div>
-                </li>
+                <QuestionListItem
+                    v-for="question in this.filteredQuestions"
+                    :question="question"
+                    :key="question.id"
+                    @questionItemClicked="showQuestion"
+                >
+                </QuestionListItem>
             </ul>
         </div>
     </div>
@@ -28,9 +28,14 @@
 
 <script>
     import db from "../../db.js";
+    import QuestionListItem from "./QuestionListItem";
 
     export default {
         name: 'QuestionsList',
+
+        components: {
+            QuestionListItem
+        },
 
         data() {
             return {
@@ -52,15 +57,18 @@
         methods: {
             setQuestionsList() {
                 const instance = this;
-                const currentQuestionsId = instance.$route.params.qid;
+                const selectedQuestionId = this.$route.params.qid;
 
                 let shownQuestions = [];
 
-                if(currentQuestionsId) {
-                    const currentQuestion = instance.getQuestionById(currentQuestionsId);
+                if(selectedQuestionId) {
+                    const currentQuestion = instance
+                        .getQuestionById(selectedQuestionId);
 
                     if(currentQuestion) {
                         shownQuestions = currentQuestion.childrenQuestions;
+                    } else {
+                        shownQuestions = db.questions;
                     }
                 } else {
                     shownQuestions = db.questions;
@@ -74,7 +82,8 @@
             },
 
             showQuestion(question) {
-                console.log("click", question)
+                console.log(123, question)
+
                 if(question.childrenQuestions && question.childrenQuestions.length) {
                     this.$router.push({
                         path: `/${question.id}`
@@ -86,41 +95,14 @@
                 }
             },
 
-
             getQuestionById(questionId) {
                 return db.questions
                     .filter(questionData => questionData.id === +questionId)[0];
-            }
+            },
         },
 
         created() {
-            console.log("Created")
             this.setQuestionsList();
-
-            // const currentQuestionsId = instance.$route.params.qid;
-            // const searchQuery = instance.searchQuery.toLowerCase();
-            //
-            // if(searchQuery) {
-            //     if(currentQuestionsId) {
-            //         this.$router.push({
-            //             path: `/query/${searchQuery}`
-            //         });
-            //     } else {
-            //         this.$router.push({
-            //             path: `/${currentQuestionsId}/query/${searchQuery}`
-            //         });
-            //     }
-            // } else {
-            //     if(currentQuestionsId) {
-            //         this.$router.push({
-            //             path: `/${currentQuestionsId}`
-            //         });
-            //     } else {
-            //         this.$router.push({
-            //             path: `/`
-            //         });
-            //     }
-            // }
         },
 
         watch: {
@@ -131,19 +113,5 @@
 
 
 <style scoped>
-    .page-title-block input {
-        width: 100%;
-        padding: 6px 12px;
-        border-radius: 5px;
-        border: solid #ccc 2px;
-        margin: 12px 0;
-        font-size: 16px;
-    }
 
-    .question-container {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        color: #000;
-    }
 </style>

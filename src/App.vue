@@ -57,38 +57,6 @@
         list-style: none;
     }
 
-    .page-content-block ul li {
-        display: block;
-        color: white;
-        border-radius: 3px;
-        text-align: left;
-        padding: 12px 18px;
-        margin: 5px 0;
-        border: 1px solid rgba(44, 46, 50, 0.32);
-        background-color: rgba(44, 46, 50, 0.1);
-    }
-
-    .page-content-block ul li a {
-        display: block;
-        border-radius: 3px;
-        width: 100%;
-        color: #000;
-    }
-
-    .page-content-block ul li span {
-        color: #000;
-    }
-
-    .page-content-block ul li:hover {
-        background-color: #2c2e32;
-        cursor: pointer;
-    }
-
-    .page-content-block ul li:hover a,
-    .page-content-block ul li:hover span {
-        color: #fff;
-    }
-
     .back-link {
         text-align: left;
         cursor: pointer;
@@ -98,6 +66,15 @@
     .nav {
         display: flex;
         flex-direction: column;
+    }
+
+    .page-title-block input {
+        width: 100%;
+        padding: 6px 12px;
+        border-radius: 5px;
+        border: solid #ccc 2px;
+        margin: 12px 0;
+        font-size: 16px;
     }
 
     @media screen and (max-width: 480px) {

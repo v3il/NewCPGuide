@@ -4,7 +4,7 @@
         <div class="page-title-block">
             <div class="nav">
                 <h2>Я хочу...</h2>
-                <span class="back-link" @click="goBack">&lsaquo; Назад</span>
+                <span v-if="!isRootPage" class="back-link" @click="goBack">&lsaquo; Назад</span>
             </div>
 
             <input v-model="searchQuery" type="text" placeholder="Начните писать хотелку" autofocus>
@@ -27,7 +27,7 @@
 
 
 <script>
-    import db from "../../db.js";
+    import DBManager from "../DBManager";
     import QuestionListItem from "./QuestionListItem";
 
     export default {
@@ -40,7 +40,8 @@
         data() {
             return {
                 searchQuery: this.$route.params.query || '',
-                shownQuestions: []
+                shownQuestions: [],
+                isRootPage: false
             }
         },
 
@@ -62,16 +63,18 @@
                 let shownQuestions = [];
 
                 if(selectedQuestionId) {
-                    const currentQuestion = instance
-                        .getQuestionById(selectedQuestionId);
+                    const currentQuestion = DBManager.getQuestionById(selectedQuestionId);
 
                     if(currentQuestion) {
                         shownQuestions = currentQuestion.childrenQuestions;
+                        this.isRootPage = false;
                     } else {
-                        shownQuestions = db.questions;
+                        shownQuestions = DBManager.getQuestions();
+                        this.isRootPage = true;
                     }
                 } else {
-                    shownQuestions = db.questions;
+                    shownQuestions = DBManager.getQuestions();
+                    this.isRootPage = true;
                 }
 
                 instance.shownQuestions = shownQuestions;
@@ -82,8 +85,6 @@
             },
 
             showQuestion(question) {
-                console.log(123, question)
-
                 if(question.childrenQuestions && question.childrenQuestions.length) {
                     this.$router.push({
                         path: `/${question.id}`
@@ -93,11 +94,6 @@
                         path: `/q/${question.id}`
                     });
                 }
-            },
-
-            getQuestionById(questionId) {
-                return db.questions
-                    .filter(questionData => questionData.id === +questionId)[0];
             },
         },
 

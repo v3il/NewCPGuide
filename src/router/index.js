@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 import QuestionsList from '@/components/QuestionsList';
 import QuestionScreen from '@/components/QuestionScreen';
+import QuestionEditScreen from '@/components/QuestionEditScreen';
 
 Vue.use(Router)
 
@@ -13,28 +14,21 @@ export default new Router({
             name: 'questions',
             component: QuestionsList,
         },
-        // {
-        //     path: '/query/:query',
-        //     name: 'filteredQuestions',
-        //     component: QuestionsList,
-        // },
         {
             path: "/:qid/",
             name: 'questions-filtered',
             component: QuestionsList,
-            // children: [
-            //     {
-            //         path: 'query/:query',
-            //         name: 'filteredQuestions',
-            //         component: QuestionsList,
-            //     },
-            // ]
         },
         {
             path: '/q/:qid/',
             name: 'question',
             component: QuestionScreen
-        }
+        },
+        {
+            path: "/edit/:qid/",
+            name: 'edit-question',
+            component: QuestionEditScreen,
+        },
     ],
 
     mode: "history"

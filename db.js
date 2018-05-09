@@ -1,7 +1,7 @@
 const questionsList = [
     {
 		question: "Узнать побольше о начале работы с фронтом новой ПУ",
-		answer: "Answer"
+		answer: "(~ test test1 ~) test test test test test test test test [= <div>console.log(123)</div> =] [= <div>console.log(12344)</div> =]"
     },
 	{
 		question: "Добавить скрипт к новой странице",

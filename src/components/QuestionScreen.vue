@@ -38,7 +38,8 @@
 
                 return answerCode
                     .replace(/\[=\s*(.*?)\s*=\]/g, "<textarea readonly>$1</textarea>")
-                    .replace(/\(~\s*(.*?)\s*~\)/g, "<h2>$1</h2>")
+                    .replace(/\(~[\s|\r|\n]*(.*?)[\s|\r|\n]*~\)/g, "<h2>$1</h2>")
+                    .replace(/[\t]*/g, "")
                 ;
             },
 

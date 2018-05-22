@@ -20,6 +20,7 @@
     body {
         background-color: #2c2e32;
         overflow-y: scroll;
+        font-size: 18px;
     }
 
     #app {

@@ -4,7 +4,7 @@
         <div class="page-title-block">
             <div class="nav">
                 <h2>Я хочу...</h2>
-                <span v-if="!isRootPage" class="back-link" @click="goBack">&lsaquo; Назад</span>
+                <span v-if="!isRootPage" class="back-link" @click="goBack">&lsaquo;</span>
             </div>
 
             <input v-model="searchQuery" type="text" placeholder="Начните писать хотелку" autofocus>
@@ -31,6 +31,7 @@
     import QuestionListItem from "./QuestionListItem";
 
     export default {
+        store: DBManager,
         name: 'QuestionsList',
 
         components: {
@@ -50,8 +51,14 @@
                 const instance = this;
                 const searchQuery = instance.searchQuery.toLowerCase();
 
+                console.log(instance.shownQuestions.length)
+
                 return instance.shownQuestions
                     .filter(questionData => ~questionData.question.toLowerCase().indexOf(searchQuery));
+            },
+
+            allQuestions () {
+                return this.$store.getters.questions;
             }
         },
 
@@ -63,21 +70,25 @@
                 let shownQuestions = [];
 
                 if(selectedQuestionId) {
-                    const currentQuestion = DBManager.getQuestionById(selectedQuestionId);
+                    console.log(1)
+                    const currentQuestion = this.$store.getters.getById(selectedQuestionId);
 
                     if(currentQuestion) {
                         shownQuestions = currentQuestion.childrenQuestions;
                         this.isRootPage = false;
                     } else {
-                        shownQuestions = DBManager.getQuestions();
+                        shownQuestions = this.allQuestions;
                         this.isRootPage = true;
                     }
                 } else {
-                    shownQuestions = DBManager.getQuestions();
+                    console.log(2)
+                    shownQuestions = this.allQuestions;
                     this.isRootPage = true;
                 }
 
                 instance.shownQuestions = shownQuestions;
+
+                console.log(instance.shownQuestions.length)
             },
 
             goBack() {
@@ -98,11 +109,14 @@
         },
 
         created() {
+            this.allQuestions.length;
+            this.$store.dispatch('loadQuestions');
             this.setQuestionsList();
         },
 
         watch: {
-            "$route": "setQuestionsList",
+            $route: "setQuestionsList",
+            allQuestions: "setQuestionsList"
         }
     }
 </script>

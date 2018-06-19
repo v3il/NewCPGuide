@@ -2,7 +2,7 @@
     <li>
         <div @click="showQuestion" class="question-container">
             <span>{{question.question}}</span>
-            <span v-if="questionHasChildren(question)">]</span>
+            <span v-if="questionHasChildren(question)">&gt;</span>
         </div>
 
         <router-link :to="{ name: 'edit-question', params: { qid: question.id }}">+</router-link>
@@ -31,9 +31,9 @@
         },
 
         async mounted() {
-            const r = await api().get();
+            // const r = await api().get();
 
-            console.log(r.data)
+            // console.log(r.data)
         }
     }
 </script>

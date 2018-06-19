@@ -4,7 +4,7 @@
         <div class="page-title-block">
             <div class="nav">
                 <h2>{{this.question.question}}</h2>
-                <span class="back-link" @click="goBack">&lsaquo; Назад</span>
+                <span class="back-link" @click="goBack">&lsaquo;</span>
             </div>
 
         </div>
@@ -21,6 +21,8 @@
 
     export default {
         name: "question-screen",
+
+        store: DBManager,
 
         data() {
             return {
@@ -58,7 +60,7 @@
             const instance = this;
             const questionId = +instance.$route.params.qid;
 
-            instance.question = DBManager.getQuestionById(questionId);
+            instance.question = this.$store.getters.getById(questionId);
         },
 
         mounted() {

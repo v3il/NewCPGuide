@@ -4,7 +4,7 @@
         <div class="page-title-block">
             <div class="nav">
                 <h2> Редактирование вопроса `{{this.question.question}}`</h2>
-                <span class="back-link" @click="goBack">&lsaquo; Назад</span>
+                <span class="back-link" @click="goBack">&lsaquo;</span>
             </div>
 
         </div>
@@ -27,6 +27,8 @@
     export default {
         name: "question-screen",
 
+        store: DBManager,
+
         data() {
             return {
                 question: null,
@@ -44,7 +46,7 @@
             const instance = this;
             const questionId = +instance.$route.params.qid;
 
-            instance.question = DBManager.getQuestionById(questionId);
+            instance.question = this.$store.getters.getById(questionId);
         },
 
         mounted() {

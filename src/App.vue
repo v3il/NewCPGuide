@@ -11,6 +11,8 @@
 </script>
 
 <style>
+    @import "../node_modules/font-awesome/css/font-awesome.css";
+
     * {
         margin: 0;
         padding: 0;

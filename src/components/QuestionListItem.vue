@@ -2,10 +2,16 @@
     <li>
         <div @click="showQuestion" class="question-container">
             <span>{{question.question}}</span>
-            <span v-if="questionHasChildren(question)">&gt;</span>
+
         </div>
 
-        <router-link :to="{ name: 'edit-question', params: { qid: question.id }}">+</router-link>
+        <span v-if="questionHasChildren(question)">
+            <i class="fa fa-angle-right" aria-hidden="true"></i>
+        </span>
+
+        <router-link :to="{ name: 'edit-question', params: { qid: question.id }}">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+        </router-link>
     </li>
 </template>
 

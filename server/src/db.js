@@ -201,7 +201,6 @@ questionsList.forEach((questionData, index) => {
 	// 	subQuestionsIds.forEach(subQuestionsId => questionsList[subQuestionsId - 1].child = true);
 	// }
 });
-
 // console.log(questionsList)
 
 module.exports = questionsList;

@@ -112,6 +112,11 @@
             this.allQuestions.length;
             this.$store.dispatch('loadQuestions');
             this.setQuestionsList();
+
+            setTimeout(() => {
+                this.$store.getters.getById(1).question += "test";
+                this.$store.dispatch('updateQuestions');
+            }, 2000)
         },
 
         watch: {

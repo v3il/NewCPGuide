@@ -50,12 +50,23 @@ export default new Vuex.Store({
             console.log(questions.length)
 
             commit('SET', questions);
+
+
         },
+
+        updateQuestions({ commit, state }) {
+            console.log("Update", state)
+            api().post("/", state.questions);
+        }
     },
 
     mutations: {
         SET(state, questions) {
             state.questions = questions;
+        },
+
+        UPDATE(state) {
+
         }
     }
 });

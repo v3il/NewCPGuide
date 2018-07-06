@@ -1,16 +1,11 @@
 <template>
-    <!--<div class="page-title-block">-->
-        <!--<div class="nav">-->
-            <!--<h2> Редактирование вопроса `{{this.question.question}}`</h2>-->
-            <!--<span class="back-link" @click="goBack">&lsaquo;</span>-->
-        <!--</div>-->
-
-    <!--</div>-->
-
     <div class="page-title-block">
         <div class="nav">
+            <span v-if="includeBackArrow" class="back-link" @click="goBack">
+                <i class="fa fa-angle-left" aria-hidden="true"></i>
+            </span>
+
             <h2>{{title}}</h2>
-            <span v-if="includeBackArrow" class="back-link" @click="goBack">&lsaquo;</span>
         </div>
 
         <slot name="additionalContent"></slot>
@@ -27,9 +22,7 @@
         ],
 
         data() {
-            return {
-
-            }
+            return {}
         },
 
         methods: {
@@ -47,21 +40,16 @@
 
     .back-link {
         cursor: pointer;
-        /*margin: 12px 0 12px 0;*/
-        /*position: absolute;*/
-        /*top: -12px;*/
-        /*left: -54px;*/
-        width: 30px;
-        height: 30px;
-        background: #ccc;
-        text-align: center;
-        line-height: 28px;
-        font-weight: bold;
-        border-radius: 3px 0 0 3px;
+        font-size: 2em;
+        color: blue;
+        padding: 0 24px 0 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .nav {
         display: flex;
-        flex-direction: column;
+        align-items: flex-end;
     }
 </style>

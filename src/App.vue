@@ -42,52 +42,21 @@
         min-height: 100vh;
     }
 
-    .page-block {
-        height: 100%;
-        position: relative;
-    }
+    /*.page-block {*/
+        /*height: 100%;*/
+        /*position: relative;*/
+    /*}*/
 
-    a {
-        color: white;
-        text-decoration: none;
-    }
 
-    .page-title-block h2 {
-        text-align: left;
-    }
 
-    .page-content-block ul {
-        list-style: none;
-    }
 
-    .back-link {
-        cursor: pointer;
-        /*margin: 12px 0 12px 0;*/
-        position: absolute;
-        top: -12px;
-        left: -54px;
-        width: 30px;
-        height: 30px;
-        background: #ccc;
-        text-align: center;
-        line-height: 28px;
-        font-weight: bold;
-        border-radius: 3px 0 0 3px;
-    }
 
-    .nav {
-        display: flex;
-        flex-direction: column;
-    }
 
-    .page-title-block input {
-        width: 100%;
-        padding: 6px 12px;
-        border-radius: 5px;
-        border: solid #ccc 2px;
-        margin: 12px 0;
-        font-size: 16px;
-    }
+
+
+
+
+
 
     @media screen and (max-width: 480px) {
         #app {

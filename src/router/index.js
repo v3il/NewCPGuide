@@ -11,12 +11,12 @@ export default new Router({
     routes: [
         {
             path: '/',
-            name: 'questions',
+            name: 'allQuestions',
             component: QuestionsList,
         },
         {
             path: "/:qid/",
-            name: 'questions-filtered',
+            name: 'allQuestions-filtered',
             component: QuestionsList,
         },
         {

@@ -204,4 +204,4 @@ questionsList.forEach((questionData, index) => {
 
 // console.log(questionsList)
 
-export default {questions: questionsList};
+export default {allQuestions: questionsList};

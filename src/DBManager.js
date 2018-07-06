@@ -1,5 +1,3 @@
-import db from "../db.js";
-
 import Vue from "vue";
 import Vuex from "vuex";
 
@@ -10,11 +8,14 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        questions: []
+        allQuestions: [],
+        selectedQuestion: null,
+        editedQuestion: null,
     },
+
     getters: {
-        questions(state) {
-            return state.questions;
+        allQuestions(state) {
+            return state.allQuestions;
         },
 
         getById: state => questionId => {
@@ -22,7 +23,7 @@ export default new Vuex.Store({
 
             const filteredQuestions = [];
 
-            filterArray(state.questions);
+            filterArray(state.allQuestions);
 
             function filterArray(array) {
                 for(let i = 0; i < array.length; i++) {
@@ -56,13 +57,13 @@ export default new Vuex.Store({
 
         updateQuestions({ commit, state }) {
             console.log("Update", state)
-            api().post("/", state.questions);
+            api().post("/", state.allQuestions);
         }
     },
 
     mutations: {
         SET(state, questions) {
-            state.questions = questions;
+            state.allQuestions = questions;
         },
 
         UPDATE(state) {

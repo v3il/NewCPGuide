@@ -5,7 +5,7 @@
 
         </div>
 
-        <span v-if="questionHasChildren(question)">
+        <span class="has-children-arrow" v-if="questionHasChildren(question)">
             <i class="fa fa-angle-right" aria-hidden="true"></i>
         </span>
 
@@ -97,5 +97,9 @@
         align-items: center;
         justify-content: space-between;
         color: #000;
+    }
+
+    .has-children-arrow {
+        margin-right: 20px;
     }
 </style>

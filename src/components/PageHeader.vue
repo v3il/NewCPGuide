@@ -41,15 +41,16 @@
     .back-link {
         cursor: pointer;
         font-size: 2em;
-        color: blue;
+        color: #2C2E32;
         padding: 0 24px 0 0;
         display: flex;
         align-items: center;
         justify-content: center;
+        margin-top: -5px;
     }
 
     .nav {
         display: flex;
-        align-items: flex-end;
+        align-items: center;
     }
 </style>

@@ -19,6 +19,10 @@
         box-sizing: border-box;
     }
 
+    html {
+        font-size: 14px;
+    }
+
     body {
         background-color: #2c2e32;
         overflow-y: scroll;
@@ -42,15 +46,9 @@
         min-height: 100vh;
     }
 
-    /*.page-block {*/
-        /*height: 100%;*/
-        /*position: relative;*/
-    /*}*/
-
-
-
-
-
+    .page-content-block {
+        margin-top: 20px;
+    }
 
 
 

@@ -18,8 +18,8 @@ export default new Vuex.Store({
             return state.allQuestions;
         },
 
-        getById: state => questionId => {
-            console.log(questionId)
+        getById: state => (questionId) => {
+            console.log(questionId, state.allQuestions)
 
             const filteredQuestions = [];
 
@@ -38,6 +38,8 @@ export default new Vuex.Store({
                     }
                 }
             }
+
+            console.log(filteredQuestions[0]);
 
             return filteredQuestions[0];
         }

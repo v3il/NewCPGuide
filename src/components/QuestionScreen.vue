@@ -1,29 +1,37 @@
 <template>
 
     <div class="page-block">
-        <page-header
-            :title="title"
-            :includeBackArrow="includeBackArrow"
-        ></page-header>
+        <template v-if="1 || widgetStatus === 'loading'">
+            <div class="overlay">
+                <i class="fa fa-circle-o-notch fa-spin" aria-hidden="true"></i>
+            </div>
+        </template>
 
-        <div class="page-content-block">
-            <div v-html="getParsedAnswer()" class="answer-block"></div>
-        </div>
+        <template v-if="widgetStatus === 'error'">
+
+        </template>
+
+        <template  v-if="widgetStatus === 'loaded'">
+            <page-header
+                :title="title"
+                :includeBackArrow="includeBackArrow"
+            ></page-header>
+
+            <div class="page-content-block">
+                <div v-html="parsedAnswer" class="answer-block"></div>
+            </div>
+        </template>
     </div>
 
 </template>
 
 <script>
-    import DBManager from "../DBManager";
-
     import PageHeader from "./PageHeader";
 
     import api from "../api";
 
     export default {
         name: "question-screen",
-
-        store: DBManager,
 
         components: {
             PageHeader,
@@ -33,85 +41,63 @@
             title() {
                 return this.question.question;
             },
+
+            parsedAnswer() {
+                return this.question.parsedAnswer;
+            }
         },
 
         data() {
             return {
                 question: {},
-
-                // title: "",
+                widgetStatus: '',
                 includeBackArrow: true,
             }
         },
 
-        methods: {
-            goBack() {
-                this.$router.go(-1);
-            },
-
-            getParsedAnswer() {
-                const answerCode = this.question.answer;
-
-                if(!answerCode) {
-                    return "";
-                }
-
-                return this.question.parsedAnswer;
-                    // .replace(/\[=\s*(.*?)\s*=\]/g, "<div>$1</div>")
-                    // .replace(/\(~[\s|\r|\n]*(.*?)[\s|\r|\n]*~\)/g, "<h2>$1</h2>")
-                    // .replace(/[\t]*/g, "")
-                ;
-            },
-
-            codeElementClick(event) {
-                const clickedElement = event.target;
-                const parentTextareaElement = clickedElement.closest("textarea");
-
-                if(parentTextareaElement) {
-                    parentTextareaElement.select();
-                    document.execCommand("copy");
-                }
-            }
-        },
+        methods: {},
 
         async created() {
             const instance = this;
             const questionId = +instance.$route.params.qid;
 
+            this.widgetStatus = "loading";
 
-            const response = await api().get(`/question/${questionId}`);
-            const question = await response.data;
+            try {
+                const response = await api().get(`/question/${questionId}`);
+                this.question = await response.data;
 
-            this.question = question;
-            this.question = question;
-
-            console.log(question)
-
-            // api().get(`/question/${questionId}`)
-            //     // .then(res => res.json())
-            //     .then(res => console.log(res));
-
-            // instance.question = this.$store.getters.getById(questionId);
-            // instance.title = this.question.question;
+                // this.widgetStatus = "loaded";
+            } catch(error) {
+                this.widgetStatus = "error";
+            }
         },
-
-        mounted() {
-            document.removeEventListener("click", this.codeElementClick);
-            document.addEventListener("click", event => this.codeElementClick(event));
-        },
-
-        destroyed() {
-            document.removeEventListener("click", this.codeElementClick);
-        }
     }
 </script>
 
 <style>
 
+    .overlay {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #2c2e32;
+    }
+
+    i.fa {
+        font-size: 50px;
+        color: white;
+    }
+
     .answer-block {
         text-align: left;
         line-height: 24px;
-        /*margin-top: 20px;*/
     }
 
     .answer-block h2 {
@@ -137,6 +123,10 @@
         user-select: none;
     }
 
+    .answer-block p {
+        font-size: 16px;
+    }
+
     .answer-block pre {
         font-size: 1rem;
         padding: .66001rem 9.5px 9.5px;
@@ -147,7 +137,6 @@
         word-break: break-all;
         word-wrap: break-word;
         color: #333;
-        background: #f5f5f5 linear-gradient(to bottom, #fff 0, #fff .75rem, #f5f7fa .75rem, #f5f7fa 2.75rem, #fff 2.75rem, #fff 4rem);
         border: 1px solid #d3daea;
         border-radius: 4px;
     }
@@ -159,8 +148,6 @@
         border-radius: 0;
         font-family: monospace,monospace;
         font-size: 1rem;
-        margin-bottom: 1.33999rem;
-        padding: .66001rem 9px 9px;
         line-height: 2rem;
         font-weight: bold;
         display: inline-block;

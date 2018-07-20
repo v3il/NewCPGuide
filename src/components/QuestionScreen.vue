@@ -1,7 +1,7 @@
 <template>
 
     <div class="page-block">
-        <template v-if="1 || widgetStatus === 'loading'">
+        <template v-if="widgetStatus === 'loading'">
             <div class="overlay">
                 <i class="fa fa-circle-o-notch fa-spin" aria-hidden="true"></i>
             </div>
@@ -67,7 +67,7 @@
                 const response = await api().get(`/question/${questionId}`);
                 this.question = await response.data;
 
-                // this.widgetStatus = "loaded";
+                this.widgetStatus = "loaded";
             } catch(error) {
                 this.widgetStatus = "error";
             }
@@ -90,7 +90,7 @@
         background: #2c2e32;
     }
 
-    i.fa {
+    .overlay i.fa {
         font-size: 50px;
         color: white;
     }

@@ -29,6 +29,11 @@ export default new Router({
             name: 'edit-question',
             component: QuestionEditScreen,
         },
+        {
+            path: "/add/:qid",
+            name: 'add-question',
+            component: QuestionEditScreen,
+        },
     ],
 
     mode: "history"

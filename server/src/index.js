@@ -72,14 +72,27 @@ app.post('/update/:id', function(req, res) {
     const questionId = req.params.id;
     const question = getQuestionById(questionId);
 
+    if(!question) {
+        questions.push({
+            id: 300,
+            ...req.body,
+        });
+
+    } else {
+        question.answer = req.body.answer;
+        question.question = req.body.question;
+    }
+
     // console.log(req.body.answer);
 
-    question.answer = req.body.answer;
+
 
     // const questions = req.body;
     // console.log(questions)
     var writer = fs.createWriteStream('./db.json');
     writer.write(JSON.stringify(questions));
+
+    res.sendStatus(200);
 })
 
-app.listen(3000, function () {});
+app.listen(5000, function () {});

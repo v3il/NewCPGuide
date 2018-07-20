@@ -12,6 +12,12 @@
                     placeholder="Начните писать хотелку"
                     autofocus
                 >
+
+                <router-link
+                    v-if="isAdmin"
+                    class="add-new"
+                    :to="{name: 'add-question', params: {qid: 'new'}}"
+                >Добавить</router-link>
             </template>
         </page-header>
 
@@ -23,6 +29,7 @@
                     :question="question"
                     :key="question.id"
                     @questionItemClicked="showQuestion"
+                    @questionItemRemoved="removeQuestion"
                 >
                 </QuestionListItem>
             </ul>
@@ -39,10 +46,17 @@
 
     import {mapGetters, mapActions} from "vuex";
 
+    import UserRoleResolver from "../mixins/UserRoleResolver";
+    import api from "../api";
+
     export default {
         name: 'QuestionsList',
 
         store: DBManager,
+
+        mixins: [
+            UserRoleResolver
+        ],
 
         components: {
             QuestionListItem,
@@ -83,11 +97,13 @@
                 "loadQuestions",
             ]),
 
-            setQuestionsList() {
+            async setQuestionsList() {
                 const instance = this;
                 const selectedQuestionId = this.$route.params.qid;
 
                 let shownQuestions = [];
+
+                // await this.loadQuestions();
 
                 if(selectedQuestionId) {
                     const currentQuestion = this.getById(selectedQuestionId);
@@ -115,14 +131,28 @@
                     });
                 }
             },
+
+            removeQuestion(question) {
+                api().delete(`/delete/${question.id}`)
+                    .then(() => {
+                        console.log("ok");
+                        this.loadQuestions();
+                    })
+            },
         },
 
         created() {
+            console.log(this.isAdmin);
             this.loadQuestions();
         },
 
         watch: {
-            $route: "setQuestionsList",
+            $route: {
+                async handler() {
+                    await this.loadQuestions();
+                    this.setQuestionsList();
+                }
+            },
             allQuestions: "setQuestionsList"
         }
     }
@@ -130,6 +160,7 @@
 
 
 <style>
+
     .filter-questions-input {
         width: 100%;
         padding: 6px 12px;
@@ -142,5 +173,28 @@
 
     .page-content-block ul {
         list-style: none;
+    }
+
+    .add-new {
+        color: #fff;
+        background-color: #5cb85c;
+        border-color: #4cae4c;
+
+        display: inline-block;
+        padding: 6px 12px;
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        -ms-touch-action: manipulation;
+        touch-action: manipulation;
+        cursor: pointer;
+        user-select: none;
+        background-image: none;
+        border-radius: 4px;
+        text-decoration: none;
     }
 </style>

@@ -12,6 +12,7 @@
 
 <style>
     @import "../node_modules/font-awesome/css/font-awesome.css";
+    /*@import "../node_modules/material-icons/css/material-icons.css";*/
 
     * {
         margin: 0;
@@ -20,7 +21,7 @@
     }
 
     html {
-        font-size: 14px;
+        font-size: 16px;
     }
 
     body {
@@ -34,7 +35,7 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         text-align: center;
-        color: #2c3e50;
+        color: #2C2E32;
         max-width: 1000px;
         width: 100%;
         margin: 0 auto;

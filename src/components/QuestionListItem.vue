@@ -2,45 +2,41 @@
     <li>
         <div @click="showQuestion" class="question-container">
             <span>{{question.question}}</span>
-
         </div>
 
-        <span class="has-children-arrow" v-if="questionHasChildren(question)">
-            <i class="fa fa-angle-right" aria-hidden="true"></i>
-        </span>
+        <div v-if="isAdmin" class="question-actions">
+            <router-link :to="{ name: 'edit-question', params: { qid: question.id }}">
+                <i class="fa fa-pencil question-action question-action_edit" aria-hidden="true"></i>
+            </router-link>
 
-        <router-link :to="{ name: 'edit-question', params: { qid: question.id }}">
-            <i class="fa fa-pencil" aria-hidden="true"></i>
-        </router-link>
+            <i @click="emitRemove()" class="fa fa-times question-action question-action_remove" aria-hidden="true"></i>
+        </div>
     </li>
 </template>
 
 <script>
-    import api from "../api";
+    import UserRoleResolver from "../mixins/UserRoleResolver";
 
     export default {
         name: "question-list-item",
+
+        mixins: [
+            UserRoleResolver,
+        ],
+
         props: [
             "question"
         ],
 
         methods: {
-            questionHasChildren(question) {
-                return question.childrenQuestions && question.childrenQuestions.length > 0;
-            },
-
             showQuestion() {
-                console.log(222, this.question);
-
                 this.$emit("questionItemClicked", this.question);
             },
+
+            emitRemove() {
+                this.$emit("questionItemRemoved", this.question);
+            },
         },
-
-        async mounted() {
-            // const r = await api().get();
-
-            // console.log(r.data)
-        }
     }
 </script>
 
@@ -48,7 +44,7 @@
     .page-content-block ul li {
         display: flex;
         justify-content: space-between;
-        color: white;
+        color: black;
         border-radius: 3px;
         text-align: left;
         padding: 12px 18px;
@@ -57,39 +53,14 @@
         background-color: rgba(44, 46, 50, 0.1);
     }
 
-    .page-content-block ul li a {
-        display: block;
-        border-radius: 3px;
-        /*width: 100%;*/
-        color: #000;
-    }
-
-    .page-content-block ul li span {
-        color: #000;
-    }
-
-    .page-content-block ul li div {
-        display: flex;
-        justify-content: space-between;
-        flex: 1;
-    }
-
-    .page-content-block ul li span:last-child {
-        margin-right: 12px;
-    }
-
     .page-content-block ul li:hover {
         background-color: #2c2e32;
         cursor: pointer;
     }
 
-    .page-content-block ul li:hover div {
+    .page-content-block ul li:hover div,
+    .page-content-block ul li:hover .question-action {
         color: #ccc;
-    }
-
-    .page-content-block ul li:hover a,
-    .page-content-block ul li:hover span {
-        color: #fff;
     }
 
     .question-container {
@@ -97,9 +68,16 @@
         align-items: center;
         justify-content: space-between;
         color: #000;
+        flex: 1;
     }
 
-    .has-children-arrow {
-        margin-right: 20px;
+    .question-actions {
+        display: flex;
+    }
+
+    .question-action {
+        margin-left: 18px;
+        cursor: pointer;
+        color: #2C2E32;
     }
 </style>

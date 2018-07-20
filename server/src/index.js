@@ -6,9 +6,7 @@ const fs = require('fs');
 
 
 var showdown  = require('showdown'),
-    converter = new showdown.Converter()/*,
-    text      = '# hello, markdown!',
-    html      = converter.makeHtml(text)*/;
+    converter = new showdown.Converter();
 
 
 const questions = require("../db.json");
@@ -74,7 +72,7 @@ app.post('/update/:id', function(req, res) {
 
     if(!question) {
         questions.push({
-            id: 300,
+            id: parseInt(`${Math.random() * 100000}`, 10),
             ...req.body,
         });
 
@@ -93,6 +91,21 @@ app.post('/update/:id', function(req, res) {
     writer.write(JSON.stringify(questions));
 
     res.sendStatus(200);
-})
+});
+
+
+app.delete('/delete/:id', (req, res) => {
+    const questionId = req.params.id;
+    const question = getQuestionById(questionId);
+
+    const index = questions.indexOf(question);
+
+    questions.splice(index, 1);
+
+    res.sendStatus(200);
+
+    console.log("Remove", question);
+});
+
 
 app.listen(5000, function () {});

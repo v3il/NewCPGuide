@@ -45,8 +45,8 @@
             return {
                 title: "",
                 question: {
-                    question: "",
-                    answer: "",
+                    question: "test",
+                    answer: "test",
                 },
                 codeMirrorInstance: null,
 

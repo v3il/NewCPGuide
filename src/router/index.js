@@ -5,9 +5,9 @@ import QuestionsList from '@/components/QuestionsList';
 import QuestionScreen from '@/components/QuestionScreen';
 import QuestionEditScreen from '@/components/QuestionEditScreen';
 
-Vue.use(Router)
+Vue.use(Router);
 
-export default new Router({
+const router = new Router({
     routes: [
         {
             path: '/',
@@ -37,4 +37,6 @@ export default new Router({
     ],
 
     mode: "history"
-})
+});
+
+export default router;

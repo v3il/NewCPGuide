@@ -15,6 +15,7 @@
     "express": "^4.16.3",
     "font-awesome": "^4.7.0",
     "less": "^2.7.3",
+    "mongo-connect": "0.0.6",
     "nodemon": "^1.17.4",
     "showdown": "^1.8.6",
     "vue": "^2.5.2",

@@ -5,24 +5,27 @@ const QuestionSchema = new mongoose.Schema({
     question: {
         type: String,
         required: true,
+        default: "",
     },
     answer: {
         type: String,
         required: true,
+        default: "",
     },
 
     parentId: {
-        type: String,
+        type: Number,
         required: true,
+        default: 0,
     },
 });
 
 
-SiteSchema.statics = {
+QuestionSchema.statics = {
 
 };
 
-SiteSchema.methods = {
+QuestionSchema.methods = {
 
 };
 

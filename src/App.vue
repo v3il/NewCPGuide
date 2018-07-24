@@ -6,7 +6,7 @@
 
 <script>
     export default {
-        name: 'app',
+        name: 'start',
     }
 </script>
 
@@ -30,7 +30,7 @@
         font-size: 18px;
     }
 
-    #app {
+    #start {
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
@@ -58,7 +58,7 @@
 
 
     @media screen and (max-width: 480px) {
-        #app {
+        #start {
             padding: 12px;
         }
     }

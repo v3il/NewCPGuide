@@ -1,4 +1,4 @@
-const config = require("./../config");
+const config = require("../../config");
 
 const Promise = require('bluebird');
 const mongoose = require('mongoose');

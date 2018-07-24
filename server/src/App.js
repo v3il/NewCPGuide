@@ -1,4 +1,4 @@
-const config = require("./config");
+const config = require("../config");
 
 const app = (require('express'))();
 
@@ -7,9 +7,10 @@ require("./boot/mongo")(app);
 
 app.listen(config.port, (error) => {
     if (error) {
-        console.error(error);
-        process.exit(1);
+        throw error;
     }
 
     console.log('Listening');
 });
+
+module.exports = app;

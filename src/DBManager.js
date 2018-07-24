@@ -47,7 +47,7 @@ export default new Vuex.Store({
 
     actions: {
         async loadQuestions({ commit }) {
-            const response = await api().get();
+            const response = await api().get("/questions/all");
             const questions = await response.data;
 
             console.log(questions.length)

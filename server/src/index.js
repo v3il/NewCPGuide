@@ -4,6 +4,9 @@ const cors = require('cors');
 const morgan = require('morgan');
 const fs = require('fs');
 
+const Promise = require('bluebird');
+const mongoose = require('mongoose');
+
 
 var showdown  = require('showdown'),
     converter = new showdown.Converter();
@@ -18,6 +21,16 @@ const app = express();
 app.use(morgan('combined'))
 app.use(bodyParser.json())
 app.use(cors());
+
+mongoose.Promise = Promise;
+mongoose.connect("mongodb://localhost:27017/newcp-guide", (err) => {
+    if (err) {
+        console.error(err);
+        process.exit(1);
+    }
+
+    console.log('connected');
+});
 
 
 function getQuestionById(questionId) {

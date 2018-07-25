@@ -1,11 +1,12 @@
 <template>
     <li>
         <div @click="showQuestion" class="question-container">
-            <span>{{question.id}}</span>
             <span>{{question.question}}</span>
         </div>
 
         <div v-if="isAdmin" class="question-actions">
+            <span v-if="question.hasChildren">&gt;</span>
+
             <router-link :to="{ name: 'edit-question', params: { qid: question.id }}">
                 <i class="fa fa-pencil question-action question-action_edit" aria-hidden="true"></i>
             </router-link>

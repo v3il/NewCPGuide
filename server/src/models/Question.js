@@ -33,13 +33,4 @@ const QuestionSchema = new mongoose.Schema({
 });
 
 
-QuestionSchema.statics = {
-
-};
-
-QuestionSchema.methods = {
-
-};
-
-
 module.exports = mongoose.model('Question', QuestionSchema);

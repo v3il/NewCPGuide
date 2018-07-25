@@ -1,11 +1,11 @@
 <template>
 
     <div class="page-block">
-        <template v-if="widgetStatus === 'loading'">
-            <div class="overlay">
-                <i class="fa fa-circle-o-notch fa-spin" aria-hidden="true"></i>
-            </div>
-        </template>
+        <!--<template v-if="widgetStatus === 'loading'">-->
+            <!--<div class="overlay">-->
+                <!--<i class="fa fa-circle-o-notch fa-spin" aria-hidden="true"></i>-->
+            <!--</div>-->
+        <!--</template>-->
 
         <template v-if="widgetStatus === 'error'">
 
@@ -64,7 +64,7 @@
             this.widgetStatus = "loading";
 
             try {
-                const response = await api().get(`/question/${questionId}`);
+                const response = await api.get(`/questions/get/${questionId}`);
                 this.question = await response.data;
 
                 this.widgetStatus = "loaded";

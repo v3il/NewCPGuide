@@ -17,7 +17,7 @@
                     <router-link
                         v-if="isAdmin"
                         class="add-new"
-                        :to="{name: 'add-question', params: {qid: 'new'}}"
+                        :to="{name: 'edit-question', params: {qid: 'new'}}"
                     >Добавить</router-link>
                 </div>
             </template>
@@ -42,19 +42,14 @@
 
 
 <script>
-    import DBManager from "../DBManager";
     import QuestionListItem from "./QuestionListItem";
     import PageHeader from "./PageHeader";
-
-    import {mapGetters, mapActions} from "vuex";
 
     import UserRoleResolver from "../mixins/UserRoleResolver";
     import api from "../api";
 
     export default {
         name: 'QuestionsList',
-
-        store: DBManager,
 
         mixins: [
             UserRoleResolver
@@ -76,13 +71,8 @@
         },
 
         computed: {
-            ...mapGetters([
-                "allQuestions",
-                "getById",
-            ]),
-
             includeBackArrow() {
-                return this.shownQuestions.length !== this.allQuestions.length;
+                return !!this.$route.params.qid;
             },
 
             filteredQuestions() {
@@ -95,31 +85,15 @@
         },
 
         methods: {
-            ...mapActions([
-                "loadQuestions",
-            ]),
+            async loadQuestions() {
+                const parentQuestionId = this.$route.params.qid || "";
 
-            async setQuestionsList() {
-                const instance = this;
-                const selectedQuestionId = this.$route.params.qid;
-
-                let shownQuestions = [];
-
-                // await this.loadQuestions();
-
-                if(selectedQuestionId) {
-                    const currentQuestion = this.getById(selectedQuestionId);
-
-                    if(currentQuestion) {
-                        shownQuestions = currentQuestion.childrenQuestions;
-                    } else {
-                        shownQuestions = this.allQuestions;
-                    }
-                } else {
-                    shownQuestions = this.allQuestions;
+                try {
+                    const response = await api.get(`/questions/list/${parentQuestionId}`);
+                    this.shownQuestions = await response.data;
+                } catch (error) {
+                    this.shownQuestions = [];
                 }
-
-                instance.shownQuestions = shownQuestions;
             },
 
             showQuestion(question) {
@@ -135,7 +109,7 @@
             },
 
             removeQuestion(question) {
-                api().delete(`/delete/${question.id}`)
+                api.delete(`/questions/delete/${question.id}`)
                     .then(() => {
                         console.log("ok");
                         this.loadQuestions();
@@ -144,18 +118,11 @@
         },
 
         created() {
-            console.log(this.isAdmin);
             this.loadQuestions();
         },
 
         watch: {
-            $route: {
-                async handler() {
-                    await this.loadQuestions();
-                    this.setQuestionsList();
-                }
-            },
-            allQuestions: "setQuestionsList"
+            $route: "loadQuestions",
         }
     }
 </script>

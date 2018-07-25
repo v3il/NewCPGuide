@@ -20,7 +20,7 @@
 </template>
 
 <script>
-    import DBManager from "../DBManager";
+    // import DBManager from "../DBManager";
     import CodeMirror from "codemirror";
 
     import PageHeader from "./PageHeader";
@@ -35,7 +35,7 @@
     export default {
         name: "question-screen",
 
-        store: DBManager,
+        // store: DBManager,
 
         components: {
             PageHeader,
@@ -67,7 +67,7 @@
 
         methods: {
             update() {
-                api().post(`/update/${this.$route.params.qid}`, this.question)
+                api.put(`/questions/update/`, this.question)
                     .then(res => console.log("ok"));
             }
         },
@@ -80,7 +80,7 @@
                 this.title = `Добавление нового вопроса`;
             } else {
                 console.log(2)
-                const response = await api().get(`/question/${questionId}`);
+                const response = await api.get(`/questions/get/${questionId}`);
                 this.question = await response.data;
 
                 this.title = `Редактирование вопроса "${this.question.question}"`;

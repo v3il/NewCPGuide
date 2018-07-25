@@ -1,6 +1,7 @@
 <template>
     <li>
         <div @click="showQuestion" class="question-container">
+            <span>{{question.id}}</span>
             <span>{{question.question}}</span>
         </div>
 

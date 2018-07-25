@@ -5,9 +5,18 @@ const MODULE_NAME = "questions";
 
 
 module.exports = (app) => {
-    app.get(`/${MODULE_NAME}/all`, async (req, res, next) => {
+    app.get(`/${MODULE_NAME}/list/:parentId?`, async (req, res, next) => {
+        const parentId = req.params.parentId;
+
         try {
-            const questions = await QuestionsService.getAll();
+            let questions = [];
+
+            if(parentId) {
+
+            } else {
+                questions = await QuestionsService.getRootQuestions();
+            }
+
             res.send(questions);
         } catch(error) {
             next(error);

@@ -5,19 +5,21 @@
             :includeBackArrow="includeBackArrow"
         >
             <template slot="additionalContent">
-                <input
-                    v-model="searchQuery"
-                    type="text"
-                    class="filter-questions-input"
-                    placeholder="Начните писать хотелку"
-                    autofocus
-                >
+                <div class="header-form">
+                    <input
+                        v-model="searchQuery"
+                        type="text"
+                        class="filter-questions-input"
+                        placeholder="Начните писать хотелку"
+                        autofocus
+                    >
 
-                <router-link
-                    v-if="isAdmin"
-                    class="add-new"
-                    :to="{name: 'add-question', params: {qid: 'new'}}"
-                >Добавить</router-link>
+                    <router-link
+                        v-if="isAdmin"
+                        class="add-new"
+                        :to="{name: 'add-question', params: {qid: 'new'}}"
+                    >Добавить</router-link>
+                </div>
             </template>
         </page-header>
 
@@ -121,7 +123,7 @@
             },
 
             showQuestion(question) {
-                if(question.childrenQuestions && question.childrenQuestions.length) {
+                if(question.hasChildren) {
                     this.$router.push({
                         path: `/${question.id}`
                     });
@@ -161,14 +163,19 @@
 
 <style>
 
+    .header-form {
+        display: flex;
+        align-items: center;
+    }
+
     .filter-questions-input {
         width: 100%;
         padding: 6px 12px;
         border-radius: 5px;
         border: solid #ccc 2px;
-        margin: 12px 0;
         font-size: 16px;
         outline: none;
+        margin: 12px 12px 12px 0;
     }
 
     .page-content-block ul {

@@ -47,7 +47,7 @@ export default new Vuex.Store({
 
     actions: {
         async loadQuestions({ commit }) {
-            const response = await api().get("/questions/all");
+            const response = await api.get("/questions/list");
             const questions = await response.data;
 
             console.log(questions.length)
@@ -59,7 +59,7 @@ export default new Vuex.Store({
 
         updateQuestions({ commit, state }) {
             console.log("Update", state)
-            api().post("/", state.allQuestions);
+            api.post("/", state.allQuestions);
         }
     },
 

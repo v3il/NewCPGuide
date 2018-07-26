@@ -98,6 +98,8 @@
                 } catch (error) {
                     this.shownQuestions = [];
                 }
+
+                this.shownQuestions.sort((a, b) => +a.hasChildren - +b.hasChildren);
             },
 
             showQuestion(question) {

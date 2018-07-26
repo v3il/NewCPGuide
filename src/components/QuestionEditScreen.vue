@@ -7,6 +7,15 @@
         ></page-header>
 
         <div class="page-content-block">
+            <label for="question-parent">Родительский вопрос</label>
+            <select v-model="question.parentId" id="question-parent">
+                <option value="-1">Нет родителя (корневой вопрос)</option>
+                <option v-for="question in questions" :value="question.id">
+                    {{question.question}}
+                </option>
+            </select>
+
+
             <label for="question-title">Заголовок</label>
             <input type="text" id="question-title" v-model="question.question">
 
@@ -47,21 +56,15 @@
                 question: {
                     question: "test",
                     answer: "test",
+                    parentId: -1,
                 },
+
+                questions: [],
+
                 codeMirrorInstance: null,
 
                 includeBackArrow: true,
             }
-        },
-
-        computed: {
-            // title() {
-            //     return `Редактирование вопроса "${this.question.question}"`;
-            // },
-
-            // answer() {
-            //     return this.question ? this.question.answer : "";
-            // }
         },
 
 
@@ -74,6 +77,11 @@
 
         async mounted() {
             const questionId = this.$route.params.qid;
+
+            const response = await api.get(`/questions/list/`);
+            this.questions = await response.data;
+
+            console.log(this.questions.length);
 
             if(questionId === "new") {
                 console.log(1)
@@ -125,6 +133,10 @@
         text-align: left;
         margin: 20px 0 12px 0;
         font-weight: bold;
+    }
+
+    textarea {
+        display: none;
     }
 
     .answer-block {

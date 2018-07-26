@@ -51,14 +51,10 @@ module.exports = (app) => {
 
         try {
             if(question.id) {
-                console.log("Update", question);
                 await QuestionsService.update(question);
             } else {
-                console.log("Save", question);
                 await QuestionsService.save(question);
             }
-
-            console.log('updone')
 
             res.sendStatus(200);
         } catch(error) {

@@ -5,7 +5,9 @@
         </div>
 
         <div v-if="isAdmin" class="question-actions">
-            <span v-if="question.hasChildren">&gt;</span>
+            <span v-if="question.hasChildren">
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+            </span>
 
             <router-link :to="{ name: 'edit-question', params: { qid: question.id }}">
                 <i class="fa fa-pencil question-action question-action_edit" aria-hidden="true"></i>

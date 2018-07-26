@@ -24,7 +24,7 @@
         </page-header>
 
 
-        <div class="page-content-block">
+        <div class="page-content-block" v-if="this.filteredQuestions.length">
             <ul>
                 <QuestionListItem
                     v-for="question in this.filteredQuestions"
@@ -35,6 +35,10 @@
                 >
                 </QuestionListItem>
             </ul>
+        </div>
+
+        <div v-else>
+            Нет данных для отображения
         </div>
     </div>
 

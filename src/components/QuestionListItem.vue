@@ -19,14 +19,14 @@
 </template>
 
 <script>
-    import UserRoleResolver from "../mixins/UserRoleResolver";
-
     export default {
         name: "question-list-item",
 
-        mixins: [
-            UserRoleResolver,
-        ],
+        data() {
+            return {
+                // isAdmin: true,
+            }
+        },
 
         props: [
             "question"

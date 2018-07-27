@@ -1,11 +1,7 @@
 export default {
     data() {
         return {
-            isAdmin: false
+            isAdmin: sessionStorage.getItem("ncpg-is-admin") === "1",
         }
-    },
-
-    created() {
-        this.isAdmin = 1 || window.location.hash === "#admin=1";
     }
 }

@@ -24,12 +24,6 @@ const QuestionSchema = new mongoose.Schema({
         required: true,
         default: -1,
     },
-
-    // hasChildren: {
-    //     type: Boolean,
-    //     required: true,
-    //     default: false,
-    // }
 });
 
 

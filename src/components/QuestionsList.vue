@@ -49,15 +49,10 @@
     import QuestionListItem from "./QuestionListItem";
     import PageHeader from "./PageHeader";
 
-    import UserRoleResolver from "../mixins/UserRoleResolver";
     import api from "../api";
 
     export default {
         name: 'QuestionsList',
-
-        mixins: [
-            UserRoleResolver
-        ],
 
         components: {
             QuestionListItem,
@@ -124,6 +119,8 @@
 
         created() {
             this.loadQuestions();
+
+            console.log(this.isAdmin);
         },
 
         watch: {
@@ -147,7 +144,7 @@
         border: solid #ccc 2px;
         font-size: 16px;
         outline: none;
-        margin: 12px 12px 12px 0;
+        margin: 12px 0;
     }
 
     .page-content-block ul {
@@ -158,22 +155,16 @@
         color: #fff;
         background-color: #5cb85c;
         border-color: #4cae4c;
-
         display: inline-block;
         padding: 6px 12px;
         margin-bottom: 0;
         font-size: 14px;
-        font-weight: 400;
         line-height: 1.42857143;
         text-align: center;
-        white-space: nowrap;
-        vertical-align: middle;
-        -ms-touch-action: manipulation;
-        touch-action: manipulation;
         cursor: pointer;
         user-select: none;
-        background-image: none;
         border-radius: 4px;
         text-decoration: none;
+        margin-left: 12px;
     }
 </style>

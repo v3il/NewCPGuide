@@ -1,5 +1,6 @@
 <template>
     <div id="app">
+        <router-link :to="'/a/a'">Admin</router-link>
         <router-view/>
     </div>
 </template>

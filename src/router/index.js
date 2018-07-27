@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import QuestionsList from '@/components/QuestionsList';
 import QuestionScreen from '@/components/QuestionScreen';
 import QuestionEditScreen from '@/components/QuestionEditScreen';
+import AuthPage from '@/components/AuthPage';
 
 Vue.use(Router);
 
@@ -28,6 +29,11 @@ const router = new Router({
             path: "/edit/:qid/",
             name: 'edit-question',
             component: QuestionEditScreen,
+        },
+        {
+            path: "/a/a",
+            name: 'auth-page',
+            component: AuthPage,
         },
     ],
 

@@ -1,9 +1,9 @@
 <template>
     <div class="page-title-block">
         <div class="nav">
-            <span v-if="includeBackArrow" class="back-link" @click="goBack">
+            <router-link v-if="url" class="back-link" :to="url">
                 <i class="fa fa-angle-left" aria-hidden="true"></i>
-            </span>
+            </router-link>
 
             <h2>{{title}}</h2>
         </div>
@@ -18,18 +18,8 @@
 
         props: [
             "title",
-            "includeBackArrow",
+            "url",
         ],
-
-        data() {
-            return {}
-        },
-
-        methods: {
-            goBack() {
-                this.$router.go(-1);
-            }
-        }
     }
 </script>
 
@@ -46,6 +36,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        text-decoration: none;
         margin-top: -5px;
     }
 

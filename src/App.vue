@@ -12,16 +12,11 @@
 
 <style>
     @import "../node_modules/font-awesome/css/font-awesome.css";
-    /*@import "../node_modules/material-icons/css/material-icons.css";*/
 
     * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-    }
-
-    html {
-        font-size: 16px;
     }
 
     body {
@@ -51,14 +46,8 @@
         margin-top: 20px;
     }
 
-
-
-
-
-
-
     @media screen and (max-width: 480px) {
-        #start {
+        #app {
             padding: 12px;
         }
     }

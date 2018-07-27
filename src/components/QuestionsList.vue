@@ -2,7 +2,7 @@
     <div class="page-block">
         <page-header
             :title="title"
-            :includeBackArrow="includeBackArrow"
+            :url="backLinkUrl"
         >
             <template slot="additionalContent">
                 <div class="header-form">
@@ -70,13 +70,12 @@
                 shownQuestions: [],
 
                 title: "Я хочу...",
-                includeSearchField: true,
             }
         },
 
         computed: {
-            includeBackArrow() {
-                return !!this.$route.params.qid;
+            backLinkUrl() {
+                return this.$route.params.qid ? "/" : "";
             },
 
             filteredQuestions() {

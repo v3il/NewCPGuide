@@ -14,7 +14,7 @@
         <template  v-if="widgetStatus === 'loaded'">
             <page-header
                 :title="title"
-                :includeBackArrow="includeBackArrow"
+                :url="backLinkUrl"
             ></page-header>
 
             <div class="page-content-block">
@@ -44,14 +44,19 @@
 
             parsedAnswer() {
                 return this.question.parsedAnswer;
-            }
+            },
+
+            backLinkUrl() {
+                return this.question && this.question.parentId >= 0
+                    ? `/${this.question.parentId}`
+                    : "/";
+            },
         },
 
         data() {
             return {
                 question: {},
                 widgetStatus: '',
-                includeBackArrow: true,
             }
         },
 
@@ -77,23 +82,23 @@
 
 <style>
 
-    .overlay {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: #2c2e32;
-    }
+    /*.overlay {*/
+        /*min-height: 100vh;*/
+        /*display: flex;*/
+        /*align-items: center;*/
+        /*justify-content: center;*/
+        /*position: absolute;*/
+        /*top: 0;*/
+        /*left: 0;*/
+        /*right: 0;*/
+        /*bottom: 0;*/
+        /*background: #2c2e32;*/
+    /*}*/
 
-    .overlay i.fa {
-        font-size: 50px;
-        color: white;
-    }
+    /*.overlay i.fa {*/
+        /*font-size: 50px;*/
+        /*color: white;*/
+    /*}*/
 
     .answer-block {
         text-align: left;
@@ -128,7 +133,7 @@
     }
 
     .answer-block pre {
-        font-size: 1rem;
+        font-size: 14px;
         padding: .66001rem 9.5px 9.5px;
         line-height: 2rem;
         background-size: 100% 4rem;
@@ -147,7 +152,7 @@
         background-color: transparent;
         border-radius: 0;
         font-family: monospace,monospace;
-        font-size: 1rem;
+        font-size: inherit;
         line-height: 2rem;
         font-weight: bold;
         display: inline-block;

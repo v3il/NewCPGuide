@@ -3,7 +3,7 @@
     <div class="page-block">
         <page-header
             :title="title"
-            :includeBackArrow="includeBackArrow"
+            :url="backLinkUrl"
         ></page-header>
 
         <div class="page-content-block">
@@ -29,7 +29,6 @@
 </template>
 
 <script>
-    // import DBManager from "../DBManager";
     import CodeMirror from "codemirror";
 
     import PageHeader from "./PageHeader";
@@ -62,8 +61,6 @@
                 questions: [],
 
                 codeMirrorInstance: null,
-
-                includeBackArrow: true,
             }
         },
 
@@ -73,6 +70,14 @@
                 api.put(`/questions/update/`, this.question)
                     .then(res => console.log("ok"));
             }
+        },
+
+        computed: {
+            backLinkUrl() {
+                return this.question && this.question.parentId >= 0
+                    ? `/${this.question.parentId}`
+                    : "/";
+            },
         },
 
         async mounted() {

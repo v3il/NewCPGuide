@@ -7,7 +7,7 @@ require("./boot/mongo")(app);
 
 require("./controllers")(app);
 
-app.listen(config.port, (error) => {
+app.listen(process.env.PORT || config.port, (error) => {
     if (error) {
         throw error;
     }

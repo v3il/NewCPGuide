@@ -11,17 +11,17 @@ Vue.use(Router);
 const router = new Router({
     routes: [
         {
-            path: '/',
+            path: '/questions',
             name: 'allQuestions',
             component: QuestionsList,
         },
         {
-            path: "/:qid/",
+            path: "/questions/:qid/",
             name: 'allQuestions-filtered',
             component: QuestionsList,
         },
         {
-            path: '/q/:qid/',
+            path: '/question/:qid/',
             name: 'question',
             component: QuestionScreen
         },
@@ -31,13 +31,21 @@ const router = new Router({
             component: QuestionEditScreen,
         },
         {
-            path: "/a/a",
+            path: "/su",
             name: 'auth-page',
             component: AuthPage,
         },
+        {
+            path: "/",
+            redirect: "/questions"
+        },
+        {
+            path: "*",
+            redirect: "/questions"
+        }
     ],
 
-    mode: "history"
+    mode: "hash"
 });
 
 export default router;

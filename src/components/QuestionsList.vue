@@ -99,11 +99,11 @@
             showQuestion(question) {
                 if(question.hasChildren) {
                     this.$router.push({
-                        path: `/${question.id}`
+                        path: `/questions/${question.id}`
                     });
                 } else {
                     this.$router.push({
-                        path: `/q/${question.id}`
+                        path: `/question/${question.id}`
                     });
                 }
             },
@@ -111,7 +111,6 @@
             removeQuestion(question) {
                 api.delete(`/questions/delete/${question.id}`)
                     .then(() => {
-                        console.log("ok");
                         this.loadQuestions();
                     })
             },

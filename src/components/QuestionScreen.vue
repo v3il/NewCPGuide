@@ -48,7 +48,7 @@
 
             backLinkUrl() {
                 return this.question && this.question.parentId >= 0
-                    ? `/${this.question.parentId}`
+                    ? `/questions/${this.question.parentId}`
                     : "/";
             },
         },

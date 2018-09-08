@@ -1,3 +1,3 @@
 New CP Guide
 -------
-A hint project that provides documentation for working with the front of a new control panel
+A hint project that provides documentation about development process of uCoz control panel v2
